@@ -6,6 +6,8 @@ services:
         restart: always
         ports:
             - "8888:80"
+        networks:
+            - zpl-print
         volumes:
             - ./src:/var/www/html
     cups:
@@ -15,6 +17,12 @@ services:
         privileged: true # Allows access to usb
         ports: 
             - "631:631"
+        networks:
+            - zpl-print
         volumes: 
             - /var/run/dbus:/var/run/dbus # Allows bounjour to play nice
             - /dev/bus/usb:/dev/bus/usb # Allows access to usb
+            - ./src/cupsd.conf:/etc/cups/cupsd.conf
+networks:
+    zpl-print:
+        name: zpl-print
