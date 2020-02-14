@@ -1,0 +1,16 @@
+language: php
+
+services:
+    - docker
+
+php: 
+    - 7.2
+    - 7.3
+    - 7.4
+
+before_script:
+    - docker-compose up -d
+
+script: 
+    - docker ps | grep -q zpl-print
+    - docker ps | grep -q cups

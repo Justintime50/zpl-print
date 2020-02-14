@@ -1,0 +1,20 @@
+version: "3.7"
+services:
+    zpl-print:
+        build: .
+        container_name: zpl-print
+        restart: always
+        ports:
+            - "8888:80"
+        volumes:
+            - ./src:/var/www/html
+    cups:
+        image: a0js/rpi-cups
+        container_name: cups
+        restart: always
+        privileged: true # Allows access to usb
+        ports: 
+            - "631:631"
+        volumes: 
+            - /var/run/dbus:/var/run/dbus # Allows bounjour to play nice
+            - /dev/bus/usb:/dev/bus/usb # Allows access to usb
